@@ -6,17 +6,6 @@ function Product({ product }) {
   const [error, setError] = useState(null);
   const paypalRef = useRef();
 
-  var [currentTime, setCurrentTime] = useState(0);
-
-  const getCurrentTime = () => {
-    fetch("/time")
-      .then((res) => res.json())
-      .then((data) => {
-        setCurrentTime(data.time);
-      });
-  };
-  getCurrentTime();
-
   useEffect(() => {
     window.paypal
       .Buttons({
@@ -66,7 +55,24 @@ function Product({ product }) {
   );
 }
 
+const Time = ({currentTime}) => {
+
+  useEffect(() => {
+
+  })
+  return (
+    <h1></h1>
+  )
+}
 function App() {
+  var [currentTime, setCurrentTime] = useState(69);
+   
+  fetch("/time")
+      .then((res) => res.json())
+      .then((data) => {
+        setCurrentTime(data.time);
+  })}
+
   const product = {
     price: 1.0,
     name: "delete",
@@ -77,7 +83,7 @@ function App() {
   return (
     <div className="App">
       <Product product={product} />
-      >>>>>>> a3449d7131be6a24ac3e68be351142a85355577d
+      <Time currentTime={currentTime}/>
     </div>
   );
 }
