@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-[{"/media/tylerbenson/Seagate Portable Drive/Projects/delete-this-site/src/App.js":"1"},{"size":996,"mtime":1610893748566,"results":"2","hashOfConfig":"3"},{"filePath":"4","messages":"5","errorCount":0,"warningCount":1,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},"1i4w50p","/media/tylerbenson/Seagate Portable Drive/Projects/delete-this-site/src/App.js",["6"],{"ruleId":"7","severity":1,"message":"8","line":18,"column":11,"nodeType":"9","messageId":"10","endLine":18,"endColumn":16},"no-unused-vars","'timer' is assigned a value but never used.","Identifier","unusedVar"]
-=======
-[{"/home/teagan/Coding-Projects/delete-this-site/src/App.js":"1"},{"size":1650,"mtime":1610893709780,"results":"2","hashOfConfig":"3"},{"filePath":"4","messages":"5","errorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},"xpx7ns","/home/teagan/Coding-Projects/delete-this-site/src/App.js",[]]
->>>>>>> a3449d7131be6a24ac3e68be351142a85355577d
