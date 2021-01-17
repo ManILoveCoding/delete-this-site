@@ -6,12 +6,18 @@ const getData = async () => {
   try{
     const value = await AsyncStorage.getItem('@myApp')
     if(value!=null) {
-      return (
-        <div></div>
-      )
+      return true;
     }
   } catch (e) {
-    //error go here
+    console.log(e);
+  }
+}
+
+const storeData = async (value) => {
+  try {
+    await AsyncStorage.setItem('@myApp', value);
+  } catch (e) {
+    console.log(e);
   }
 }
 
@@ -40,7 +46,8 @@ function Product({ product }) {
   }, [product.description, product.price]);
 
   if (paidFor) {
-    AsyncStorage.setItem('@myApp', 'deleted')
+    storeData('deleted')
+    console.log(getData())
     return (
       <div>
         <h1>Congrats, you just deleted this site!</h1>
@@ -51,7 +58,7 @@ function Product({ product }) {
   return (
     <div>
       <h1>
-        {product.description} for ${product.price}
+        {product.description} for just ${product.price}
       </h1>
       <div ref={paypalRef} />
     </div>
@@ -64,11 +71,7 @@ function App() {
     name: 'delete',
     description: 'delete this site',
   };
-
-  if(getData()){
-    return <div></div>
-  }
-
+  console.log(getData())
   return (
     <div className="App">
       <Product product={product} />
