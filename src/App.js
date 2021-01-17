@@ -29,9 +29,9 @@ function Product({ product }) {
     window.paypal
       .Buttons({
         createOrder: (data, actions) => {
-          const order = actions.order.capture();
+          //const order = actions.order.capture();
           setPaidFor(true);
-          console.log(order);
+          //console.log(order);
         },
         onApprove: async (data, actions) => {
           const order = await actions.order.capture();
@@ -51,6 +51,7 @@ function Product({ product }) {
     return (
       <div>
         <h1>Congrats, you just deleted this site!</h1>
+        <p>You will be automatically billed</p>
       </div>
     );
   }
@@ -71,7 +72,7 @@ function App() {
     name: 'delete',
     description: 'delete this site',
   };
-  console.log(getData())
+
   return (
     <div className="App">
       <Product product={product} />
