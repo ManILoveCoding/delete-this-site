@@ -85,11 +85,11 @@ export default class App extends React.Component {
     }
     //asyncstorage does not work at all like i think it should so just pretend it returns blank after the second time
     return isDeleted ? (
-      <div></div>
-    ) : (
       <div className="App">
         <Product product={product} />
       </div>
+    ) : (
+      <div></div>
     );
   }
 }
