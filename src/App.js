@@ -1,25 +1,25 @@
-import './App.css';
-import React, { useState, useRef, useEffect } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import "./App.css";
+import React, { useState, useRef, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const getData = async () => {
-  try{
-    const value = await AsyncStorage.getItem('@myApp')
-    if(value!=null) {
+  try {
+    const value = await AsyncStorage.getItem("@myApp");
+    if (value != null) {
       return true;
     }
   } catch (e) {
     console.log(e);
   }
-}
+};
 
 const storeData = async (value) => {
   try {
-    await AsyncStorage.setItem('@myApp', value);
+    await AsyncStorage.setItem("@myApp", value);
   } catch (e) {
     console.log(e);
   }
-}
+};
 
 function Product({ product }) {
   const [paidFor, setPaidFor] = useState(false);
@@ -38,7 +38,7 @@ function Product({ product }) {
           setPaidFor(true);
           console.log(order);
         },
-        onError: err => {
+        onError: (err) => {
           setPaidFor(true);
         },
       })
@@ -46,13 +46,18 @@ function Product({ product }) {
   }, [product.description, product.price]);
 
   if (paidFor) {
-    storeData('deleted')
-    console.log(getData())
+    storeData("deleted");
+    console.log(getData());
     return (
-      <div>
-        <h1>Congrats, you just deleted this site!</h1>
-        <p>You will be automatically billed</p>
-      </div>
+      <>
+        <div>
+          <h4>nice, you just deleted this site</h4>
+          <p>You will be automatically billed</p>
+        </div>
+        <div>
+          <h1>RUNNING rm -rf ./* </h1> <img src="loading.gif" alt="load" />
+        </div>
+      </>
     );
   }
 
@@ -68,9 +73,9 @@ function Product({ product }) {
 
 function App() {
   const product = {
-    price: 1.00,
-    name: 'delete',
-    description: 'delete this site',
+    price: 1.0,
+    name: "delete",
+    description: "delete this site",
   };
 
   return (
