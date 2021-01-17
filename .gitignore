@@ -2,3 +2,5 @@ node_modules
 venv/
 build/
 .vercel
+
+.eslintcache

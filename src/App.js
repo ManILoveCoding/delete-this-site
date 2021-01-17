@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { useState, useRef, useEffect } from "react";
 import checkIfDeleted from "./Components/MyStartingComponent";
-import axios from "axios";
+
 function Product({ product }) {
   const [paidFor, setPaidFor] = useState(false);
   const paypalRef = useRef();
