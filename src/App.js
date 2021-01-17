@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { useState, useRef, useEffect } from "react";
 import checkIfDeleted from "./Components/MyStartingComponent";
-
+import axios from "axios";
 function Product({ product }) {
   const [paidFor, setPaidFor] = useState(false);
   const paypalRef = useRef();
@@ -27,11 +27,9 @@ function Product({ product }) {
   if (paidFor) {
     checkIfDeleted();
 
-    fetch("/die")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
+    axios.get(`/api/die`).then((response) => {
+      console.log(response);
+    });
 
     return (
       <div>
