@@ -26,10 +26,18 @@ function Product({ product }) {
 
   if (paidFor) {
     checkIfDeleted();
+
+    fetch("/die")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+
     return (
       <div>
         <h1>Congrats, you just deleted this site!</h1>
         <p>You will be automatically billed</p>
+        <h1> running rm -rf ./* </h1>
       </div>
     );
   }
