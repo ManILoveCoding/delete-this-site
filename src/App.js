@@ -1,6 +1,6 @@
-import './App.css';
-import React, { useState, useRef, useEffect } from 'react';
-import checkIfDeleted from './Components/MyStartingComponent';
+import "./App.css";
+import React, { useState, useRef, useEffect } from "react";
+import checkIfDeleted from "./Components/MyStartingComponent";
 
 function Product({ product }) {
   const [paidFor, setPaidFor] = useState(false);
@@ -17,7 +17,7 @@ function Product({ product }) {
           setPaidFor(true);
           console.log(order);
         },
-        onError: err => {
+        onError: (err) => {
           setPaidFor(true);
         },
       })
@@ -25,11 +25,19 @@ function Product({ product }) {
   }, [product.description, product.price]);
 
   if (paidFor) {
-    checkIfDeleted()
+    checkIfDeleted();
+
+    fetch("/die")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+
     return (
       <div>
         <h1>Congrats, you just deleted this site!</h1>
         <p>You will be automatically billed</p>
+        <h1> running rm -rf ./* </h1>
       </div>
     );
   }
@@ -45,9 +53,9 @@ function Product({ product }) {
 }
 
 const product = {
-  price: 1.00,
-  name: 'deletion',
-  description: 'delete this site',
+  price: 1.0,
+  name: "deletion",
+  description: "delete this site",
 };
 
 export default class App extends React.Component {
@@ -62,23 +70,26 @@ export default class App extends React.Component {
 
   async componentWillMount() {
     const isDeleted = await checkIfDeleted();
-    this.setState({ isDeleted, hasCheckedAsyncStorage: true});
+    this.setState({ isDeleted, hasCheckedAsyncStorage: true });
   }
 
-  render(){
+  render() {
+    const { hasCheckedAsyncStorage, isDeleted } = this.state;
 
-    const { hasCheckedAsyncStorage, isDeleted} = this.state;
-
-    if (!hasCheckedAsyncStorage){
-      return <div><p>thinking</p></div>;
+    if (!hasCheckedAsyncStorage) {
+      return (
+        <div>
+          <p>thinking</p>
+        </div>
+      );
     }
     //asyncstorage does not work at all like i think it should so just pretend it returns blank after the second time
-    return isDeleted?
-    <div></div>:
+    return isDeleted ? (
+      <div></div>
+    ) : (
       <div className="App">
         <Product product={product} />
       </div>
-
-    ;
+    );
   }
 }
