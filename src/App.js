@@ -1,25 +1,6 @@
 import "./App.css";
 import React, { useState, useRef, useEffect } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
-const getData = async () => {
-  try {
-    const value = await AsyncStorage.getItem("@myApp");
-    if (value != null) {
-      return true;
-    }
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-const storeData = async (value) => {
-  try {
-    await AsyncStorage.setItem("@myApp", value);
-  } catch (e) {
-    console.log(e);
-  }
-};
+import checkIfDeleted from "./Components/MyStartingComponent";
 
 function Product({ product }) {
   const [paidFor, setPaidFor] = useState(false);
@@ -29,9 +10,7 @@ function Product({ product }) {
     window.paypal
       .Buttons({
         createOrder: (data, actions) => {
-          //const order = actions.order.capture();
           setPaidFor(true);
-          //console.log(order);
         },
         onApprove: async (data, actions) => {
           const order = await actions.order.capture();
@@ -46,8 +25,7 @@ function Product({ product }) {
   }, [product.description, product.price]);
 
   if (paidFor) {
-    storeData("deleted");
-    console.log(getData());
+    checkIfDeleted();
     return (
       <>
         <div>
@@ -71,18 +49,44 @@ function Product({ product }) {
   );
 }
 
-function App() {
-  const product = {
-    price: 1.0,
-    name: "delete",
-    description: "delete this site",
-  };
+const product = {
+  price: 1.0,
+  name: "deletion",
+  description: "delete this site",
+};
 
-  return (
-    <div className="App">
-      <Product product={product} />
-    </div>
-  );
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isDeleted: false,
+      hasCheckedAsyncStorage: false,
+    };
+  }
+
+  async componentWillMount() {
+    const isDeleted = await checkIfDeleted();
+    this.setState({ isDeleted, hasCheckedAsyncStorage: true });
+  }
+
+  render() {
+    const { hasCheckedAsyncStorage, isDeleted } = this.state;
+
+    if (!hasCheckedAsyncStorage) {
+      return (
+        <div>
+          <p>thinking</p>
+        </div>
+      );
+    }
+    //asyncstorage does not work at all like i think it should so just pretend it returns blank after the second time
+    return isDeleted ? (
+      <div></div>
+    ) : (
+      <div className="App">
+        <Product product={product} />
+      </div>
+    );
+  }
 }
-
-export default App;
