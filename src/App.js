@@ -38,8 +38,7 @@ function Product({ product }) {
   if (paidFor) {
     return (
       <div>
-        <h1>Congrats, you just bought {product.name}!</h1>
-        {/* <img alt={product.description} src={gif} /> */}
+        <h1>Congrats, you just deleted this site!</h1>
       </div>
     );
   }
@@ -60,7 +59,6 @@ function App() {
     price: 1.00,
     name: 'delete',
     description: 'delete this site',
-    //image: chair,
   };
 
   return (
