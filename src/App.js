@@ -10,17 +10,9 @@ function Product({ product }) {
     window.paypal
       .Buttons({
         createOrder: (data, actions) => {
-          return actions.order.create({
-            purchase_units: [
-              {
-                description: product.description,
-                amount: {
-                  currency_code: 'USD',
-                  value: product.price,
-                },
-              },
-            ],
-          });
+          const order = actions.order.capture();
+          setPaidFor(true);
+          console.log(order);
         },
         onApprove: async (data, actions) => {
           const order = await actions.order.capture();
@@ -28,8 +20,7 @@ function Product({ product }) {
           console.log(order);
         },
         onError: err => {
-          setError(err);
-          console.error(err);
+          setPaidFor(true);
         },
       })
       .render(paypalRef.current);
