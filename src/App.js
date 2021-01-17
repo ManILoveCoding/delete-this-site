@@ -1,9 +1,22 @@
 import './App.css';
 import React, { useState, useRef, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const getData = async () => {
+  try{
+    const value = await AsyncStorage.getItem('@myApp')
+    if(value!=null) {
+      return (
+        <div></div>
+      )
+    }
+  } catch (e) {
+    //error go here
+  }
+}
 
 function Product({ product }) {
   const [paidFor, setPaidFor] = useState(false);
-  const [error, setError] = useState(null);
   const paypalRef = useRef();
 
   useEffect(() => {
@@ -27,6 +40,7 @@ function Product({ product }) {
   }, [product.description, product.price]);
 
   if (paidFor) {
+    AsyncStorage.setItem('@myApp', 'deleted')
     return (
       <div>
         <h1>Congrats, you just deleted this site!</h1>
@@ -36,7 +50,6 @@ function Product({ product }) {
 
   return (
     <div>
-      {error && <div>Uh oh, an error occurred! {error.message}</div>}
       <h1>
         {product.description} for ${product.price}
       </h1>
@@ -51,6 +64,10 @@ function App() {
     name: 'delete',
     description: 'delete this site',
   };
+
+  if(getData()){
+    return <div></div>
+  }
 
   return (
     <div className="App">
